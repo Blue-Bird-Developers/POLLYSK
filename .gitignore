@@ -62,3 +62,6 @@ typings/
 
 # os setting
 .DS_store
+
+# config
+config
