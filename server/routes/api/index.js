@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-router.use('/polly', require('./polly/index'))
-router.use('/reko', require('./reko/index'))
+router.use('/polly', require('./polly'))
+router.use('/rekognition', require('./rekognition'))
 
 module.exports = router

@@ -1,45 +1,80 @@
 const express = require('express');
 const router = express.Router();
+const util = require('../../../module/util');
+const code = require('../../../module/statusCode');
+const msg = require('../../../module/responseMessage');
 const AWS = require('aws-sdk');
+const config = require('../../../config/awsConfig')
+const User = require('../../../model/User')
+
+AWS.config.region = config.region;
 const rekognition = new AWS.Rekognition(
-    //config : region
+    {
+        region: config.region
+    }
 );
 
-router.post('/api/rekognition/rekognition', function(request, response, next) {
-    const face = //read();
+router.post('/:userId', (req, res) => {
+    const userId = req.params.userId;
+    var faceSingle = '';
+
+    if(!userId){
+        res.status(code.BAD_REQUEST)
+        .send(util.successFalse(responseMessage.NULL_VALUE));
+        return;
+    }
+
+    User.read({userId})
+    .then(face => {
+        faceSingle = face.face;
+        console.log(face.face);
+        return {
+            code: code.OK,
+            json: util.successTrue('', faceSingle)
+        };
+    }).catch(err => {
+        console.log(err);
+        return {
+            code: code.INTERNAL_SERVER_ERROR,
+            json: util.successFalse(msg.INTERNAL_SERVER_ERROR)
+        };
+    })
+    
+    // .then(({code, json})=>{
+    //     res.status(code).send(json)
+    // });
+
     const param = {
         "Image": {
-            "Bytes": face,
+            "Bytes": faceSingle,
         },
         "Attributes": ["ALL"]
     }
+    console.log(param);
 
-    rekognition.detectFaces(param, function(error, data) {
+    rekognition.detectFaces(param, (error, data) => {
         if(error) {
-            response.send(error);
+            res.send(error);
         }
         else {
-
-            if(data.FaceDetails && data.FaceDetails.length>0) {
+            if(data.FaceDetails && data.FaceDetails.length > 0) {
                 const detectedAge = {
                     age : detectUserAgeRange(data)
                 };
-
-                response.json(detectedAge);
+                res.json(detectedAge);
             }
             else {
                 const invalidAge = {
                     age : "none"
                 };
-
-                response.json(invalidAge);
+                res.json(invalidAge);
             }
 
         }
     });
 });
 
-const detectUserAgeRange = function(data) {
+const detectUserAgeRange = (data) => {
     const ageRangeFromFace = data.FaceDetails[0].AgeRange;
     const low = ageRangeFromFace.Low;
     const high = ageRangeFromFace.High;
@@ -49,3 +84,4 @@ const detectUserAgeRange = function(data) {
 }
 
 module.exports = router;
+
