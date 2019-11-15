@@ -72,7 +72,9 @@ async function converTextIntoSpeech(menus) {
         };
 
         
-        s3.upload(s3params);
+        s3.upload(s3params,function(err, data) {
+            if (err) throw err
+        });
     })
 }
 
