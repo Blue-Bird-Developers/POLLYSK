@@ -1,0 +1,21 @@
+{
+  "name": "pollysk",
+  "version": "1.0.0",
+  "description": "WIC Hackerthon - Kiosk for the blind (AWS Polly)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:server": "cd server && npm run start",
+    "start:client": "cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4AMPOLLY/POLLYSK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4AMPOLLY/POLLYSK/issues"
+  },
+  "homepage": "https://github.com/4AMPOLLY/POLLYSK#readme"
+}
