@@ -54,7 +54,6 @@ const menus = [
 
 async function converTextIntoSpeech(menus) {
     menus.forEach(async (menu) => {
-        console.log(menu.text);
         const menu_polly_params = {
             Text: menu.text,
             TextType: 'text',
@@ -72,15 +71,9 @@ async function converTextIntoSpeech(menus) {
             ACL: "public-read"
         };
 
-        console.log(s3params);
-        s3.upload(s3params, function(err, data){
-            if(err){
-                console.log('ERR');
-                console.log(err.message);
-            } else{
-                console.log("^^");
-                console.log(data.Location);
-            }
+        
+        s3.upload(s3params,function(err, data) {
+            if (err) throw err
         });
     })
 }
