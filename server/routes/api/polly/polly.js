@@ -4,7 +4,7 @@ const router = express.Router()
 module.exports = router
 
 const AWS = require('aws-sdk');
-AWS.config.loadFromPath('./awscreds.json');
+AWS.config.loadFromPath(__dirname+'/pollyConfig.json');
 const Polly = new AWS.Polly({
     signatureVersion: 'v4',
     region: 'ap-northeast-2'
