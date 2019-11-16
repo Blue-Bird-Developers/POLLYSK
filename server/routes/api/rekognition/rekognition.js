@@ -4,6 +4,7 @@ const util = require('../../../module/util');
 const code = require('../../../module/statusCode');
 const msg = require('../../../module/responseMessage');
 const AWS = require('aws-sdk');
+AWS.config.loadFromPath(__dirname+'/rekoConfig.json');
 const User = require('../../../model/User')
 const axios = require('axios')
 
