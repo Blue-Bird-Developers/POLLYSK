@@ -6,6 +6,7 @@ const msg = require('../../../module/responseMessage');
 const AWS = require('aws-sdk');
 const config = require('../../../config/awsConfig')
 const User = require('../../../model/User')
+const axios = require('axios')
 
 AWS.config.region = config.region;
 const rekognition = new AWS.Rekognition(
@@ -15,7 +16,7 @@ const rekognition = new AWS.Rekognition(
 );
 
 router.post('/:userId', (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.paramss.userId;
     var faceSingle = '';
 
     if(!userId){
@@ -44,35 +45,47 @@ router.post('/:userId', (req, res) => {
     //     res.status(code).send(json)
     // });
 
-    const param = {
-        "Image": {
-            "Bytes": faceSingle,
-        },
-        "Attributes": ["ALL"]
-    }
-    console.log(param);
+    // const params = {
+    //     "Image": {
+    //         "Bytes": faceSingle,
+    //     },
+    //     "Attributes": ["ALL"]
+    // }
+    console.log(faceSingle);
+//     const imageURL = req.query.imageURL
+//   // 이미지 URL로부터 해당 이미지를 arraybuffer 형식으로 가져옵니다.
+//     const responseImage = await axios.get(
+//         imageURL,
+//         { responseType: 'arraybuffer' }
+//     )
 
-    rekognition.detectFaces(param, (error, data) => {
-        if(error) {
-            res.send(error);
-        }
-        else {
-            if(data.FaceDetails && data.FaceDetails.length > 0) {
-                const detectedAge = {
-                    age : detectUserAgeRange(data)
-                };
-                res.json(detectedAge);
-            }
-            else {
-                const invalidAge = {
-                    age : "none"
-                };
-                res.json(invalidAge);
-            }
+//   // rekognition의 detectText 함수에 필요한 parameter 변수입니다.
+//     const params = {
+//         Image: {
+//             Bytes: new Buffer(responseImage.data, 'binary')
+//         }
+//     }
 
-        }
-    });
-});
+//     rekognition.detectFaces(params, (error, data) => {
+//         if(error) {
+//             res.send(error);
+//         }
+//         else {
+//             if(data.FaceDetails && data.FaceDetails.length > 0) {
+//                 const detectedAge = {
+//                     age : detectUserAgeRange(data)
+//                 };
+//                 res.json(detectedAge);
+//             }
+//             else {
+//                 const invalidAge = {
+//                     age : "none"
+//                 };
+//                 res.json(invalidAge);
+//             }
+//         }
+//     });
+// });
 
 const detectUserAgeRange = (data) => {
     const ageRangeFromFace = data.FaceDetails[0].AgeRange;
