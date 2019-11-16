@@ -4,16 +4,10 @@ const util = require('../../../module/util');
 const code = require('../../../module/statusCode');
 const msg = require('../../../module/responseMessage');
 const AWS = require('aws-sdk');
-const config = require('../../../config/awsConfig')
 const User = require('../../../model/User')
 const axios = require('axios')
 
-AWS.config.region = config.region;
-const rekognition = new AWS.Rekognition(
-    {
-        region: config.region
-    }
-);
+const rekognition = new AWS.Rekognition();
 
 router.post('/:userId', (req, res) => {
     const userId = req.paramss.userId;
@@ -85,16 +79,15 @@ router.post('/:userId', (req, res) => {
 //             }
 //         }
 //     });
-// });
+ });
 
-const detectUserAgeRange = (data) => {
-    const ageRangeFromFace = data.FaceDetails[0].AgeRange;
-    const low = ageRangeFromFace.Low;
-    const high = ageRangeFromFace.High;
+// const detectUserAgeRange = (data) => {
+//     const ageRangeFromFace = data.FaceDetails[0].AgeRange;
+//     const low = ageRangeFromFace.Low;
+//     const high = ageRangeFromFace.High;
 
-    //TODO : 나이 output 내는 방식 .. 평균내는 것 말고
-    return parseInt(low+high / 2);
-}
+//     //TODO : 나이 output 내는 방식 .. 평균내는 것 말고
+//     return parseInt(low+high / 2);
+// }
 
 module.exports = router;
-
