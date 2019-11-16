@@ -4,15 +4,11 @@ const util = require('../../../module/util');
 const code = require('../../../module/statusCode');
 const msg = require('../../../module/responseMessage');
 const AWS = require('aws-sdk');
-const config = require('../../../config/awsConfig')
+AWS.config.loadFromPath(__dirname+'/rekoConfig.json');
 const User = require('../../../model/User')
+const axios = require('axios')
 
-AWS.config.region = config.region;
-const rekognition = new AWS.Rekognition(
-    {
-        region: config.region
-    }
-);
+const rekognition = new AWS.Rekognition();
 
 router.post('/:userId', (req, res) => {
     const userId = req.params.userId;
@@ -44,15 +40,15 @@ router.post('/:userId', (req, res) => {
     //     res.status(code).send(json)
     // });
 
-    const param = {
-        "Image": {
-            "Bytes": faceSingle,
-        },
-        "Attributes": ["ALL"]
-    }
-    console.log(param);
 
-    rekognition.detectFaces(param, (error, data) => {
+  // rekognition의 detectText 함수에 필요한 parameter 변수입니다.
+    const params = {
+        Image: {
+            Bytes: faceSingle
+        }
+    }
+
+    rekognition.detectFaces(params, (error, data) => {
         if(error) {
             res.send(error);
         }
@@ -69,7 +65,6 @@ router.post('/:userId', (req, res) => {
                 };
                 res.json(invalidAge);
             }
-
         }
     });
 });
@@ -84,4 +79,3 @@ const detectUserAgeRange = (data) => {
 }
 
 module.exports = router;
-

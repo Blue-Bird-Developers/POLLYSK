@@ -65,4 +65,5 @@ typings/
 
 # config
 config
-awsConfig.json
+rekoConfig.json
+pollyConfig.json
