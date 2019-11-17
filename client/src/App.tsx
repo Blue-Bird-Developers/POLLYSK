@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 `
+
 @inject('store')
 @observer
 class App extends React.Component {

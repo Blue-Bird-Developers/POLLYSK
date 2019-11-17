@@ -12,11 +12,12 @@
     "object-literal-sort-keys": false,
     "no-shadowed-variable": false,
     "max-line-length": false,
+    "trailing-comma": false,
     "prefer-for-of": false,
     "variable-name": false,
     "no-empty": false,
     "max-classes-per-file": false,
-    "no-console": [true, "log"],
+    "no-console": false,
     "member-access": false
   }
 }
