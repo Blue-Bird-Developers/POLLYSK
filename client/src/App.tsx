@@ -1,12 +1,16 @@
 import React, { Fragment } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
-import DetectAge from './views/DetectAge'
+import { Provider, inject, observer } from 'mobx-react'
+import { DetectAge, SelectMenu, Pay, FinishedOrder } from './views'
+import store, { Store } from './store'
 
 export default () => (
-  <Fragment>
-    <App />
-    <GlobalStyle />
-  </Fragment>
+  <Provider store={store}>
+    <Fragment>
+      <App />
+      <GlobalStyle />
+    </Fragment>
+  </Provider>
 )
 
 const GlobalStyle = createGlobalStyle`
@@ -32,11 +36,26 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+@inject('store')
+@observer
 class App extends React.Component {
+  store: Store = (this.props as any).store
+
   render() {
     return (
       <AppContainer>
-        <DetectAge />
+        {this.store.globalState === 'ready' &&
+          <DetectAge />
+        }
+        {this.store.globalState === 'order' &&
+          <SelectMenu />
+        }
+        {this.store.globalState === 'pay' &&
+          <Pay />
+        }
+        {this.store.globalState === 'ordered' &&
+          <FinishedOrder />
+        }
       </AppContainer>
     )
   }
