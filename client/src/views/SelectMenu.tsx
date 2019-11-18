@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Store } from '../store'
 import { observer, inject } from 'mobx-react'
+import { Link } from 'react-router-dom';
 
 @inject('store')
 @observer
@@ -12,7 +13,9 @@ export default class SelectMenu extends React.Component {
     return (
       <Container>
         <Title>주문페이지입니다.</Title>
-        <OrderButton onClick={this.onClickOrderButton}>주문하기</OrderButton>
+        <Link to='/pay'>
+          <OrderButton onClick={this.onClickOrderButton}>주문하기</OrderButton>
+        </Link>
       </Container>
     )
   }

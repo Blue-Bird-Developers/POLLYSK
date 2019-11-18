@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PeopleCard from './PeopleCard'
 import { observer, inject } from 'mobx-react'
 import { Store } from '../store'
+import { Link } from 'react-router-dom';
 
 interface IDetectAge {
   isPeopleSelected: false
@@ -26,7 +27,9 @@ export default class DetectAge extends React.Component<{}, IDetectAge> {
           <PeopleCard />
           <PeopleCard />
         </PeopleContainer>
-        <StartButton onClick={this.onClickStartButton}>주문하기</StartButton>
+        <Link to='/order'>
+          <StartButton onClick={this.onClickStartButton}>주문하기</StartButton>
+        </Link>
       </Container>
     )
   }
