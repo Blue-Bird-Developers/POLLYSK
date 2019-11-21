@@ -3,10 +3,11 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components'
 import { Provider, inject, observer } from 'mobx-react'
 import { DetectAge, SelectMenu, Pay, FinishedOrder } from './views'
-import store, { Store } from './store'
+import MenuStore from './stores/menu'
+import CounterStore from './stores/counter'
 
-export default () => (
-  <Provider store={store}>
+export default () =>
+  <Provider menu={MenuStore} counter={CounterStore}>
     <BrowserRouter>
       <Fragment>
         <App />
@@ -14,7 +15,6 @@ export default () => (
       </Fragment>
     </BrowserRouter>
   </Provider>
-)
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -39,39 +39,14 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-@inject('store')
-@observer
 class App extends React.Component {
-  store: Store = (this.props as any).store
-
   render() {
-    console.log(store.globalState)
     return (
       <AppContainer>
         <Route exact path='/' component={DetectAge} />
         <Route exact path='/order' component={SelectMenu} />
         <Route exact path='/pay' component={Pay} />
         <Route exact path='/ordered' component={FinishedOrder} />
-        {/* <Route exact path='/'>
-          {this.store.globalState === 'ready' && 
-            <DetectAge />
-          }
-        </Route>
-        <Route exact path='/order'>
-          {this.store.globalState === 'order' &&
-            <SelectMenu />
-          }
-        </Route>
-        <Route exact path='/pay'>
-          {this.store.globalState === 'pay' &&
-            <Pay />
-          }
-        </Route>
-        <Route exact path='/ordered'>
-          {this.store.globalState === 'ordered' &&
-            <FinishedOrder />
-          }
-        </Route> */}
       </AppContainer>
     )
   }
