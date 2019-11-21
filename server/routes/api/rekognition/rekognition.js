@@ -14,12 +14,18 @@ router.post('/:userId', (req, res) => {
     const userId = req.params.userId;
     var faceSingle = '';
 
+<<<<<<< Updated upstream
     if(!userId){
+=======
+
+    if (!userId) {
+>>>>>>> Stashed changes
         res.status(code.BAD_REQUEST)
         .send(util.successFalse(responseMessage.NULL_VALUE));
         return;
     }
 
+<<<<<<< Updated upstream
     User.read({userId})
     .then(face => {
         faceSingle = face.face;
@@ -67,6 +73,83 @@ router.post('/:userId', (req, res) => {
             }
         }
     });
+=======
+    User.read({
+            userId
+        })
+        .then(face => {
+            faceSingle = face.face;
+
+            return {
+                code: code.OK,
+                json: util.successTrue('', faceSingle)
+            };
+        }).catch(err => {
+            console.log(err);
+            return {
+                code: code.INTERNAL_SERVER_ERROR,
+                json: util.successFalse(msg.INTERNAL_SERVER_ERROR)
+            };
+        })
+        .then(faceSingle => {
+            const imageURL = faceSingle.json.data;
+            const fileName = imageURL.substr(imageURL.lastIndexOf('/') + 1);
+
+            return fileName;
+        })
+        .then(input => {
+            const params = {
+                "Image": {
+                    "S3Object": {
+                        "Bucket": "pollysk-s3",
+                        "Name": input
+                    }
+                },
+                "Attributes": [
+                    "ALL"
+                ]
+            }
+
+            return params;
+        })
+        .then(params => {
+            
+                rekognition.detectFaces(params, (error, data) => {
+
+                        if (error) {
+                            res.send(error);
+                        } else {
+
+                            if (data.FaceDetails && data.FaceDetails.length > 0) {
+                                const detectedAge = {
+                                    age: detectUserAgeRange(data)
+                                };
+                                const age = detectedAge.age;
+                                console.log(detectedAge.age);
+
+                                User.update({
+                                    userId,
+                                    age
+                                })
+                                //.then((json) => res.send(json))
+                                .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS)))
+                                .catch(err => {
+                                    console.log(err);
+                                    res.status(code.INTERNAL_SERVER_ERROR)
+                                        .send(util.successFalse(msg.INTERNAL_SERVER_ERROR));
+                                });
+                        } else {
+                            const invalidAge = {
+                                age: "none"
+                            };
+
+                            res.json(invalidAge);
+                        }
+
+                    }
+                });
+        })
+>>>>>>> Stashed changes
 });
 
 const detectUserAgeRange = (data) => {
@@ -74,8 +157,13 @@ const detectUserAgeRange = (data) => {
     const low = ageRangeFromFace.Low;
     const high = ageRangeFromFace.High;
 
+<<<<<<< Updated upstream
     //TODO : 나이 output 내는 방식 .. 평균내는 것 말고
     return parseInt(low+high / 2);
+=======
+    //TODO:나이output내는방식..평균내는것말고
+    return parseInt((low + high) / 2);
+>>>>>>> Stashed changes
 }
 
 module.exports = router;
