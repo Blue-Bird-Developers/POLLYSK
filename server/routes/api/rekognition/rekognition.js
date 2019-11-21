@@ -8,86 +8,86 @@ AWS.config.loadFromPath(__dirname + '/rekoConfig.json');
 const User = require('../../../model/User')
 const rekognition = new AWS.Rekognition();
 
-
 router.post('/:userId', (req, res) => {
     const userId = req.params.userId;
     var faceSingle = "";
-
     if (!userId) {
         res.status(code.BAD_REQUEST)
             .send(util.successFalse(responseMessage.NULL_VALUE));
         return;
     }
-
     User.read({
-        userId
-    })
-    .then(face => {
-        faceSingle = face.face;
-
-        return {
-            code: code.OK,
-            json: util.successTrue('', faceSingle)
-        };
-    }).catch(err => {
-        console.log(err);
-        return {
-            code: code.INTERNAL_SERVER_ERROR,
-            json: util.successFalse(msg.INTERNAL_SERVER_ERROR)
-        };
-    })
-    .then(faceSingle => {
-        const imageURL = faceSingle.json.data;
-        const fileName = imageURL.substr(imageURL.lastIndexOf('/') + 1);
-        
-        return fileName;
-    })
-    .then(input => {
-        const params = {
-            "Image": {
-                "S3Object": {
-                    "Bucket": "pollysk-s3",
-                    "Name": input
-                }
-            },
-            "Attributes": [
-                "ALL"
-            ]
-        }
-
-        return params;
-    })
-    .then(params => {
-        rekognition.detectFaces(params, (error, data) => {
-            if (error) {
-                res.send(error);
-            } else {
-
-                if (data.FaceDetails && data.FaceDetails.length > 0) {
-                    const detectedAge = {
-                        age: detectUserAgeRange(data)
-                    };
-
-                    res.json(detectedAge);
-                } else {
-                    const invalidAge = {
-                        age: "none"
-                    };
-
-                    res.json(invalidAge);
-                }
-
+            userId
+        })
+        .then(face => {
+            faceSingle = face.face;
+            return {
+                code: code.OK,
+                json: util.successTrue('', faceSingle)
+            };
+        }).catch(err => {
+            console.log(err);
+            return {
+                code: code.INTERNAL_SERVER_ERROR,
+                json: util.successFalse(msg.INTERNAL_SERVER_ERROR)
+            };
+        })
+        .then(faceSingle => {
+            const imageURL = faceSingle.json.data;
+            const fileName = imageURL.substr(imageURL.lastIndexOf('/') + 1);
+            return fileName;
+        })
+        .then(input => {
+            const params = {
+                "Image": {
+                    "S3Object": {
+                        "Bucket": "pollysk-s3",
+                        "Name": input
+                    }
+                },
+                "Attributes": [
+                    "ALL"
+                ]
             }
-        });
-    })
+            return params;
+        })
+        .then(params => {
+            rekognition.detectFaces(params, (error, data) => {
+                if (error) {
+                    res.send(error);
+                } else {
+                    if (data.FaceDetails && data.FaceDetails.length > 0) {
+                        const detectedAge = {
+                            age: detectUserAgeRange(data)
+                        };
+                        const age = detectedAge.age;
+                        console.log(detectedAge.age);
+                        User.update({
+                                userId,
+                                age
+                            })
+                            //.then((json) => res.send(json))
+                            .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS)))
+                            .catch(err => {
+                                console.log(err);
+                                res.status(code.INTERNAL_SERVER_ERROR)
+                                    .send(util.successFalse(msg.INTERNAL_SERVER_ERROR));
+                            });
+                    } else {
+                        const invalidAge = {
+                            age: "none"
+                        };
+                        res.json(invalidAge);
+                    }
+                }
+            });
+        })
 });
 
 const detectUserAgeRange = (data) => {
     const ageRangeFromFace = data.FaceDetails[0].AgeRange;
     const low = ageRangeFromFace.Low;
     const high = ageRangeFromFace.High;
-    
-    //TODO:나이output내는방식..평균내는것말고
     return parseInt((low + high) / 2);
 }
 
