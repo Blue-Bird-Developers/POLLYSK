@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Store } from '~/store'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom';
+import OrderCard from './OrderCard';
 
 @inject('store')
 @observer
@@ -13,6 +14,7 @@ export default class Pay extends React.Component {
     return (
       <Container>
         <Title>결제페이지입니다.</Title>
+        <OrderCard />
         <Link to='/ordered'>
           <PayButton onClick={this.onClickPayButton}>결제하기</PayButton>
         </Link>
