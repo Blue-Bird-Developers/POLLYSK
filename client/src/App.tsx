@@ -78,6 +78,6 @@ class App extends React.Component {
 }
 
 const AppContainer = styled.div`
-    padding: 0.5rem;
-    height: 100%;
-  `
+  padding: 0.5rem;
+  height: 100%;
+`
