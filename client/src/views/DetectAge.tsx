@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import PeopleCard from './PeopleCard'
+import People from './People'
 import { observer, inject } from 'mobx-react'
 import { Store } from '../store'
+import { Link } from 'react-router-dom'
 
 interface IDetectAge {
   isPeopleSelected: false
@@ -21,12 +23,10 @@ export default class DetectAge extends React.Component<{}, IDetectAge> {
     return (
       <Container>
         <Title> 고객님의 연령대를 분석중입니다. </Title>
-        <PeopleContainer>
-          <PeopleCard />
-          <PeopleCard />
-          <PeopleCard />
-        </PeopleContainer>
-        <StartButton onClick={this.onClickStartButton}>주문하기</StartButton>
+        <People />
+        <Link to='/order'>
+          <StartButton onClick={this.onClickStartButton}>주문하기</StartButton>
+        </Link>
       </Container>
     )
   }

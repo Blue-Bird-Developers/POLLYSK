@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Store } from '~/store'
 import { observer, inject } from 'mobx-react'
+import { Link } from 'react-router-dom';
+import OrderCard from './OrderCard';
 
 @inject('store')
 @observer
@@ -9,11 +11,16 @@ export default class Pay extends React.Component {
   store: Store = (this.props as any).store
 
   render() {
-    return(
+    return (
       <Container>
         <Title>결제페이지입니다.</Title>
-        <PayButton onClick={this.onClickPayButton}>결제하기</PayButton>
-        <BackToOrderButton onClick={this.onClickGoBackToOrder}>다시 주문하기</BackToOrderButton>
+        <OrderCard />
+        <Link to='/ordered'>
+          <PayButton onClick={this.onClickPayButton}>결제하기</PayButton>
+        </Link>
+        <Link to='/order'>
+          <BackToOrderButton onClick={this.onClickGoBackToOrder}>다시 주문하기</BackToOrderButton>
+        </Link>
       </Container>
     )
   }
