@@ -46,7 +46,7 @@ router.post('/:userId', (req, res) => {
         const params = {
             "Image": {
                 "S3Object": {
-                    "Bucket": "rekogtest12",
+                    "Bucket": "pollysk-s3",
                     "Name": input
                 }
             },

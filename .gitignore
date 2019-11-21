@@ -64,3 +64,4 @@ typings/
 config
 rekoConfig.json
 pollyConfig.json
+awsConfig.json
