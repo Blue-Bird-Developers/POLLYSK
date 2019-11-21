@@ -6,8 +6,6 @@ const AWS = require('aws-sdk');
 AWS.config.loadFromPath(__dirname + '/pollyConfig.json');
 
 router.get('/:pollyName', (req, res) => {
-    const pollyName = 
-    console.log(pollyName);
     const s3 = new AWS.S3();
     const params = {
         Bucket: "pollybucket223",
