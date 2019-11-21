@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import _map from 'lodash/map'
 import { Card, Divider, Image } from 'semantic-ui-react'
-import image1 from '../../assets/seohyun.jpg'
 import image2 from '../../assets/yongsik.jpg'
 import image3 from '../../assets/chris.jpg'
 import image4 from '../../assets/ducksoon.jpg'
