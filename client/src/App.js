@@ -4,8 +4,6 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { Provider } from 'mobx-react'
 import { DetectAge, SelectMenu, Pay, FinishedOrder } from './views'
 import RootStore from './stores'
-import MenuStore from './stores/menu'
-import CounterStore from './stores/counter'
 
 const root = new RootStore()
 
@@ -26,17 +24,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    display: block;
-    font-size: 30px;
-    user-select: none;
     padding: 2.625rem 1.21875rem;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    outline: none;
   }
 
   html, #app, body {
+    line-height: 3rem;
     height: 100%;
   }
 `
@@ -55,6 +50,6 @@ class App extends React.Component {
 }
 
 const AppContainer = styled.div`
-  padding: 0.5rem;
+  padding: 1em;
   height: 100%;
 `
