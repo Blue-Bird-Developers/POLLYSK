@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     padding: 2.625rem 1.21875rem;
     justify-content: center;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
   }

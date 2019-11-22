@@ -13,7 +13,7 @@ const PreviewCartList = ({ items, total, onTake }) => {
       <Card.Group doubling itemsPerRow={6} stackable>
         {itemList}
       </Card.Group>
-      <Header as='h4'>총합: {total}원</Header>
+      <Header as='h4'>금액: {total}원</Header>
     </CartContainer>
   )
 }
@@ -27,5 +27,6 @@ export default inject(({ menu }) => ({
 const CartContainer = styled.div`
   max-height: 413px !important;
   overflow-y: auto;
-  border: 1px white solid;
+  overflow-x: hidden;
+  border: .1px white solid;
 `
