@@ -8,6 +8,28 @@ AWS.config.loadFromPath(__dirname + '/rekoConfig.json');
 const User = require('../../../model/User')
 const rekognition = new AWS.Rekognition();
 
+router.post('/', (req, res) => { //express optional paramter
+    const face = req.data.base64Image;
+    const s3Bucket = new AWS.S3({
+        params: {
+            Bucket: 'pollysk-s3'
+        }
+    });
+    if (!face) {
+        res.status(code.BAD_REQUEST)
+            .send(util.successFalse(responseMessage.NULL_VALUE));
+        return;
+    }
+    s3Bucket.putObject(face, function (err, data) {
+        if (err) {
+            console.log(err);
+            console.log('Error uploading data: ', data);
+        } else {
+            console.log('succesfully uploaded the image!');
+        }
+    });
+})
+
 router.post('/:userId', (req, res) => {
     const userId = req.params.userId;
     var faceSingle = "";
@@ -16,6 +38,7 @@ router.post('/:userId', (req, res) => {
             .send(util.successFalse(responseMessage.NULL_VALUE));
         return;
     }
+
     User.read({
             userId
         })
@@ -66,7 +89,6 @@ router.post('/:userId', (req, res) => {
                                 userId,
                                 age
                             })
-                            //.then((json) => res.send(json))
                             .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS)))
                             .catch(err => {
                                 console.log(err);
@@ -88,7 +110,8 @@ const detectUserAgeRange = (data) => {
     const ageRangeFromFace = data.FaceDetails[0].AgeRange;
     const low = ageRangeFromFace.Low;
     const high = ageRangeFromFace.High;
-    return parseInt((low + high) / 2);
+    // return parseInt((low + high) / 2);
+    return high;
 }
 
 module.exports = router;
