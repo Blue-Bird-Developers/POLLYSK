@@ -12,22 +12,26 @@ const coffeteas = [
   {
     image: tea1,
     name: '잉글리시블랙퍼스트',
-    price: 1200
+    price: 1200,
+    pollyText: 'tea1Polly.mp3'
   },
   {
     image: tea2,
     name: '우롱',
-    price: 1200
+    price: 1200,
+    pollyText: 'tea2Polly.mp3'
   },
   {
     image: tea3,
     name: '얼그레이',
-    price: 1200
+    price: 1200,
+    pollyText: 'tea3Polly.mp3'
   },
   {
     image: tea4,
     name: '차얌블랙티',
-    price: 1400
+    price: 1400,
+    pollyText: 'tea4Polly.mp3'
   }
 ]
 

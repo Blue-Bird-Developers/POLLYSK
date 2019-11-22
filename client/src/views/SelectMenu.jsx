@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import Menus from './Menu'
+import PreviewCart from './PreviewCart'
 import axios from 'axios'
 
 export default class SelectMenu extends React.Component {
@@ -10,17 +11,18 @@ export default class SelectMenu extends React.Component {
     return (
       <Container>
         <Title>차얌에 오신 것을 환영합니다.</Title>
-        <Button
+        {/* <Button
           size='small'
           basic
           color='blue'
           content='들려줘'
-          onClick={() => this.pollyCall('categoryPolly.mp3')}
-        />
+          onClick={() => this.pollyCall('categoryPollyPolly.mp3')}
+        /> */}
+        <PreviewCart />
         <Menus />
         <Link to='/pay'>
           <Button inverted color='purple'>
-            주문하기
+            담기
           </Button>
         </Link>
       </Container>
