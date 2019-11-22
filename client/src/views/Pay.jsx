@@ -1,15 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
-import OrderCard from './OrderCard'
+import PayItems from './PayItemList'
 
 export default class Pay extends React.Component {
   render() {
     return (
       <Container>
         <Title>결제페이지입니다.</Title>
-        <OrderCard />
+        <PayItems />
         <Link to='/ordered'>
           <PayButton>결제하기</PayButton>
         </Link>
