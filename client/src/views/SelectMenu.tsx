@@ -2,12 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Menus from './Menu'
+import { Button } from 'semantic-ui-react';
+import axios from 'axios'
 
 export default class SelectMenu extends React.Component {
   render() {
     return (
       <Container>
         <Title>주문페이지입니다.</Title>
+
+        <Button size = 'small' basic color='blue' content='들려줘' onClick = {() => this.pollyCall('categoryPolly.mp3')}/>
+
         <Menus />
         <Link to='/pay'>
           <OrderButton>주문하기</OrderButton>
@@ -15,12 +20,36 @@ export default class SelectMenu extends React.Component {
       </Container>
     )
   }
+
+  pollyCall(wantedObject: string) {
+    const result = axios.get('http://d3rapgmys1mfel.cloudfront.net/'+ wantedObject)
+    .then(function (response) {     
+     // handle success
+     const url = response.data
+     const onAudio = (url: string) => {
+      const audio = new Audio()
+  
+      document.body.appendChild(audio)
+      audio.src = url
+  
+      const onAudioStopped = () => {
+        audio.removeEventListener('pause', onAudioStopped)
+        audio.remove()
+      }
+  
+      audio.addEventListener('pause', onAudioStopped)
+      audio.load()
+      audio.play()
+    }
+    onAudio(url)
+    })
+  }
 }
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // height: 100%;
 `
 
 const OrderButton = styled.button`
