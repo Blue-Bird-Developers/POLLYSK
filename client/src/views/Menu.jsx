@@ -1,6 +1,8 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
-import MenuItemList from './MenuItemList'
+import MilkTeaItemList from './MilkTeaItemList'
+import CoffeeItemList from './CoffeeItemList'
+import TeaItemList from './TeaItemList'
 
 export default class Menus extends React.Component {
   render() {
@@ -9,12 +11,26 @@ export default class Menus extends React.Component {
         menuItem: '밀크티',
         render: () => (
           <Tab.Pane>
-            <MenuItemList />
+            <MilkTeaItemList />
           </Tab.Pane>
         )
       },
-      { menuItem: '커피', render: () => <Tab.Pane>커피입니다.</Tab.Pane> },
-      { menuItem: '차', render: () => <Tab.Pane>차입니다.</Tab.Pane> }
+      {
+        menuItem: '커피',
+        render: () => (
+          <Tab.Pane>
+            <CoffeeItemList />
+          </Tab.Pane>
+        )
+      },
+      {
+        menuItem: '차',
+        render: () => (
+          <Tab.Pane>
+            <TeaItemList />
+          </Tab.Pane>
+        )
+      }
     ]
 
     return <Tab panes={panels} />

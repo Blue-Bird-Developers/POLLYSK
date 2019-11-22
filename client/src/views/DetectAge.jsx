@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import WebCam from './WebCam'
 
 export default class DetectAge extends React.Component {
   render() {
     return (
       <Container>
         <Title> 고객님의 연령대를 분석중입니다. </Title>
+        {/* <WebCam /> */}
         {/* <People /> */}
         <Link to='/order'>
           <StartButton>주문하기</StartButton>
