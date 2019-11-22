@@ -1,50 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import PeopleCard from './PeopleCard'
 import People from './People'
-import { observer, inject } from 'mobx-react'
-import { Store } from '../store'
 import { Link } from 'react-router-dom'
 
-interface IDetectAge {
-  isPeopleSelected: false
-}
-
-@inject('store')
-@observer
-export default class DetectAge extends React.Component<{}, IDetectAge> {
-  store: Store = (this.props as any).store
-
-  state: IDetectAge = {
-    isPeopleSelected: false,
-  }
-
+export default class DetectAge extends React.Component<{}> {
   render() {
     return (
       <Container>
         <Title> 고객님의 연령대를 분석중입니다. </Title>
         <People />
         <Link to='/order'>
-          <StartButton onClick={this.onClickStartButton}>주문하기</StartButton>
+          <StartButton>주문하기</StartButton>
         </Link>
       </Container>
     )
-  }
-
-  onClickStartButton = () => {
-    this.store.setGlobalState('order')
   }
 }
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
-`
-
-const PeopleContainer = styled.div`
-  display: flex;
-  flex-direction: row;
   height: 100%;
 `
 

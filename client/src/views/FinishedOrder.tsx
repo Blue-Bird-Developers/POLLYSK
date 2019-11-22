@@ -1,27 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Store } from '~/store'
-import { observer, inject } from 'mobx-react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-@inject('store')
-@observer
 export default class Pay extends React.Component {
-  store: Store = (this.props as any).store
-
   render() {
     return(
       <Container>
         <Title>주문해주셔서 감사합니다.</Title>
         <Link to='/'>
-          <BackToMenuButton onClick={this.onClickBackToMenu}>처음으로 돌아가기</BackToMenuButton>
+          <BackToMenuButton>처음으로 돌아가기</BackToMenuButton>
         </Link>
       </Container>
     )
-  }
-
-  onClickBackToMenu = () => {
-    this.store.setGlobalState('ready')
   }
 }
 
