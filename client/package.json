@@ -35,5 +35,8 @@
     "styled-components": "^4.4.0",
     "react-html5-camera-photo": "^1.5.2",
     "axios": "^0.19.0"
+  },
+  "dependencies": {
+    "base64-to-image": "^1.0.2"
   }
 }
