@@ -10,7 +10,6 @@ export default class DetectAge extends React.Component {
     return (
       <Container>
         <Title> 고객님의 연령대를 분석중입니다. </Title>
-        <button onClick={() => this.onAgeDetected(20)}>+</button>
         <WebCam />
         <Link to='/order'>
           <Button inverted color='blue' onClick={() => getPolly('welcomePolly.mp3')}>
@@ -19,10 +18,6 @@ export default class DetectAge extends React.Component {
         </Link>
       </Container>
     )
-  }
-
-  onAgeDetected = (fontSize) => {
-    document.getElementsByTagName('html')[0].style.fontSize = fontSize + 'px'
   }
 }
 
