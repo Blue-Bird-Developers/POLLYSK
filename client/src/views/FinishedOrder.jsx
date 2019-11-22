@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default class Pay extends React.Component {
   render() {
-    return(
+    return (
       <Container>
         <Title>주문해주셔서 감사합니다.</Title>
         <Link to='/'>

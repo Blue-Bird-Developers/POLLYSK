@@ -1,14 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
-import People from './People'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-export default class DetectAge extends React.Component<{}> {
+export default class DetectAge extends React.Component {
   render() {
     return (
       <Container>
         <Title> 고객님의 연령대를 분석중입니다. </Title>
-        <People />
+        {/* <People /> */}
         <Link to='/order'>
           <StartButton>주문하기</StartButton>
         </Link>
