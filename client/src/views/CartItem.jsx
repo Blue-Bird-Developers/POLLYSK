@@ -1,8 +1,8 @@
 import React from 'react'
-import { Card, Image, Button, Grid } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 import { observer } from 'mobx-react'
 
-const PayItem = observer(({ item, onTake }) => {
+const CartItem = observer(({ item, onTake }) => {
   return (
     <Card>
       <Card.Content>
@@ -20,4 +20,4 @@ const PayItem = observer(({ item, onTake }) => {
   )
 })
 
-export default PayItem
+export default CartItem
