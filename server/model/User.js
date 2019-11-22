@@ -26,7 +26,6 @@ module.exports = {
             age
         }) => {
             const table = 'users';
-            console.log(age);
             return pool.queryParam_None(`UPDATE ${table} SET age = ${age} WHERE userId = ${userId}`)      
         }
 }
