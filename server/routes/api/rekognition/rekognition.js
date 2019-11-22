@@ -84,7 +84,7 @@ router.post('/:userId', (req, res) => {
                                 userId,
                                 age
                             })
-                            .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS)))
+                            .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS), age))
                             .catch(err => {
                                 console.log(err);
                                 res.status(code.INTERNAL_SERVER_ERROR)
