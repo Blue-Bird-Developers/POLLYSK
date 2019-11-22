@@ -7,26 +7,21 @@ const AWS = require('aws-sdk');
 AWS.config.loadFromPath(__dirname + '/rekoConfig.json');
 const User = require('../../../model/User')
 const rekognition = new AWS.Rekognition();
-
-router.post('/', (req, res) => { //express optional paramter
-    const face = req.data.base64Image;
-    const s3Bucket = new AWS.S3({
-        params: {
-            Bucket: 'pollysk-s3'
-        }
-    });
-    if (!face) {
-        res.status(code.BAD_REQUEST)
-            .send(util.successFalse(responseMessage.NULL_VALUE));
-        return;
-    }
-    s3Bucket.putObject(face, function (err, data) {
-        if (err) {
-            console.log(err);
-            console.log('Error uploading data: ', data);
-        } else {
-            console.log('succesfully uploaded the image!');
-        }
+const multerS3 = require('multer-s3')
+const upload = require('./multer');
+// const upload = require("multer")({dest:"upload/"})
+router.post("/", upload.single("file"), (req, res, next)=>{
+    const face = req.file.location;
+    var age = 0;
+    User.insert({
+        face,
+        age
+    })
+    .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS)))
+    .catch(err => {
+        console.log(err);
+        res.status(code.INTERNAL_SERVER_ERROR)
+            .send(util.successFalse(msg.INTERNAL_SERVER_ERROR));
     });
 })
 
@@ -110,8 +105,7 @@ const detectUserAgeRange = (data) => {
     const ageRangeFromFace = data.FaceDetails[0].AgeRange;
     const low = ageRangeFromFace.Low;
     const high = ageRangeFromFace.High;
-    // return parseInt((low + high) / 2);
-    return high;
+    return parseInt((low + high) / 2) +5;
 }
 
 module.exports = router;
