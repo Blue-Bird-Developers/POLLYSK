@@ -11,13 +11,13 @@ import { Card } from 'semantic-ui-react'
 const coffeteas = [
   {
     image: tea1,
-    name: '잉글리시블랙퍼스트',
+    name: '블랙퍼스트',
     price: 1200,
     pollyText: 'tea1Polly.mp3'
   },
   {
     image: tea2,
-    name: '우롱',
+    name: '우롱차',
     price: 1200,
     pollyText: 'tea2Polly.mp3'
   },

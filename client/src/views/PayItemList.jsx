@@ -12,7 +12,7 @@ const PayItemList = ({ items, total, onTake }) => {
       <Card.Group doubling itemsPerRow={3} stackable>
         {itemList}
       </Card.Group>
-      <Header as='h4'>총합: {total}원</Header>
+      <Header as='h4'>금액: {total}원</Header>
     </>
   )
 }

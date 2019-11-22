@@ -10,7 +10,7 @@ const CartItem = observer(({ item, onTake }) => {
         <Card.Description>{item.price}원</Card.Description>
         <Card.Description>{item.count}개</Card.Description>
         <Button
-          color='blue'
+          color='orange'
           content='빼기'
           size='tiny'
           onClick={() => onTake(item.name, item.price)}
