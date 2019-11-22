@@ -1,13 +1,16 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components'
-import { Provider, inject, observer } from 'mobx-react'
+import { Provider } from 'mobx-react'
 import { DetectAge, SelectMenu, Pay, FinishedOrder } from './views'
+import RootStore from './stores'
 import MenuStore from './stores/menu'
 import CounterStore from './stores/counter'
 
+const root = new RootStore()
+
 export default () =>
-  <Provider menu={MenuStore} counter={CounterStore}>
+  <Provider {...root}>
     <BrowserRouter>
       <Fragment>
         <App />
@@ -31,7 +34,6 @@ const GlobalStyle = createGlobalStyle`
     margin-left: auto;
     margin-right: auto;
     outline: none;
-    height: 100%;
   }
 
   html, #app, body {

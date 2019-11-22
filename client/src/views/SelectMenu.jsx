@@ -1,8 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
+import styled from 'styled-components'
 import Menus from './Menu'
-import { Button } from 'semantic-ui-react';
 import axios from 'axios'
 
 export default class SelectMenu extends React.Component {
@@ -10,9 +10,13 @@ export default class SelectMenu extends React.Component {
     return (
       <Container>
         <Title>주문페이지입니다.</Title>
-
-        <Button size = 'small' basic color='blue' content='들려줘' onClick = {() => this.pollyCall('categoryPolly.mp3')}/>
-
+        <Button
+          size='small'
+          basic
+          color='blue'
+          content='들려줘'
+          onClick={() => this.pollyCall('categoryPolly.mp3')}
+        />
         <Menus />
         <Link to='/pay'>
           <OrderButton>주문하기</OrderButton>
@@ -21,12 +25,13 @@ export default class SelectMenu extends React.Component {
     )
   }
 
-  pollyCall(wantedObject: string) {
+
+  pollyCall(wantedObject) {
     const result = axios.get('http://d3rapgmys1mfel.cloudfront.net/'+ wantedObject)
     .then(function (response) {     
      // handle success
-     const url = response.data
-     const onAudio = (url: string) => {
+      const url = response.data
+      const onAudio = (url) => {
       const audio = new Audio()
   
       document.body.appendChild(audio)
@@ -47,9 +52,9 @@ export default class SelectMenu extends React.Component {
 }
 
 const Container = styled.div`
-  // display: flex;
-  // flex-direction: column;
-  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `
 
 const OrderButton = styled.button`
