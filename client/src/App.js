@@ -34,7 +34,6 @@ const GlobalStyle = createGlobalStyle`
     margin-left: auto;
     margin-right: auto;
     outline: none;
-    height: 100%;
   }
 
   html, #app, body {
