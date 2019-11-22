@@ -17,7 +17,7 @@ export default class Pay extends React.Component {
         </Link>
         <Link to='/order'>
           <Button inverted color='red'>
-            다시 주문하기
+            다시 담기
           </Button>
         </Link>
       </Container>

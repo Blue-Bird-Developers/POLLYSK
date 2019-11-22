@@ -14,32 +14,38 @@ const coffeteas = [
   {
     image: coffee1,
     name: '아메리카노',
-    price: 1000
+    price: 1000,
+    pollyText: 'coffee1Polly.mp3'
   },
   {
     image: coffee2,
     name: '카페라떼',
-    price: 1500
+    price: 1500,
+    pollyText: 'coffee2Polly.mp3'
   },
   {
     image: coffee3,
     name: '바닐라라떼',
-    price: 1500
+    price: 1500,
+    pollyText: 'coffee3Polly.mp3'
   },
   {
     image: coffee4,
     name: '말차라떼',
-    price: 2000
+    price: 2000,
+    pollyText: 'coffee4Polly.mp3'
   },
   {
     image: coffee5,
     name: '초코라떼',
-    price: 2000
+    price: 2000,
+    pollyText: 'coffee5Polly.mp3'
   },
   {
     image: coffee6,
     name: '티라떼',
-    price: 2000
+    price: 2000,
+    pollyText: 'coffee6Polly.mp3'
   }
 ]
 
