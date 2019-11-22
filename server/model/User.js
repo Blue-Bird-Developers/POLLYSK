@@ -20,12 +20,21 @@ module.exports = {
                     throw err;
                 })
         },
-
         update: ({
             userId,
             age
         }) => {
             const table = 'users';
             return pool.queryParam_None(`UPDATE ${table} SET age = ${age} WHERE userId = ${userId}`)      
+        },
+        insert: ({
+            face,
+            age
+        }) => {
+            const table = 'users';
+            const fields = 'face, age';
+            const questions = `?, ?`;
+            const values = [face, age];
+            return pool.queryParam_Parse(`INSERT INTO ${table}(${fields}) VALUES(${questions})`, values)
         }
 }
