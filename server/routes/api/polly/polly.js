@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-module.exports = router
 
 const AWS = require('aws-sdk');
 AWS.config.loadFromPath(__dirname + '/pollyConfig.json');
