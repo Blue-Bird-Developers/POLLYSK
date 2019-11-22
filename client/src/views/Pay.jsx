@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import PayItems from './PayItemList'
+import { Button } from 'semantic-ui-react'
 
 export default class Pay extends React.Component {
   render() {
@@ -10,10 +11,14 @@ export default class Pay extends React.Component {
         <Title>결제페이지입니다.</Title>
         <PayItems />
         <Link to='/ordered'>
-          <PayButton>결제하기</PayButton>
+          <Button inverted color='blue'>
+            결제하기
+          </Button>
         </Link>
         <Link to='/order'>
-          <BackToOrderButton>다시 주문하기</BackToOrderButton>
+          <Button inverted color='red'>
+            다시 주문하기
+          </Button>
         </Link>
       </Container>
     )
@@ -29,22 +34,4 @@ const Container = styled.div`
 const Title = styled.div`
   font-size: 26px;
   font-weight: 700;
-`
-
-const PayButton = styled.button`
-  border-radius: 0.15rem;
-  display: inline-block;
-  font-weight: 500;
-  padding: 0.35rem 0.9rem;
-  position: relative;
-  width: 7rem;
-`
-
-const BackToOrderButton = styled.button`
-  border-radius: 0.15rem;
-  display: inline-block;
-  font-weight: 500;
-  padding: 0.35rem 0.9rem;
-  position: relative;
-  width: 7rem;
 `

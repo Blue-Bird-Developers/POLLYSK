@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Image, Button, Grid } from 'semantic-ui-react'
+import { Card, Image, Button, Grid, Popup } from 'semantic-ui-react'
 
 const MenuItem = ({ name, image, price, onPut }) => {
   return (
@@ -11,14 +11,30 @@ const MenuItem = ({ name, image, price, onPut }) => {
           </Grid.Column>
           <Grid.Column width={10}>
             <Card.Header>{name}</Card.Header>
-            <Button.Group basic vertical>
-              <Button
-                color='blue'
-                content={price}
-                size='tiny'
-                onClick={() => onPut(name, price)}
-              />
-            </Button.Group>
+            <Popup
+              trigger={
+                <Button
+                  color='red'
+                  content={price}
+                  icon='heart'
+                  label={{
+                    basic: true,
+                    color: 'red',
+                    pointing: 'left',
+                    content: '주문'
+                  }}
+                />
+              }
+              content={
+                <Button
+                  color='green'
+                  content='주문하기'
+                  onClick={() => onPut(name, price)}
+                />
+              }
+              on='click'
+              position='top right'
+            />
           </Grid.Column>
         </Grid>
       </Card.Content>

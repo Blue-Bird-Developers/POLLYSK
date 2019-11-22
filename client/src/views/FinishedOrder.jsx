@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 export default class Pay extends React.Component {
@@ -8,7 +9,9 @@ export default class Pay extends React.Component {
       <Container>
         <Title>주문해주셔서 감사합니다.</Title>
         <Link to='/'>
-          <BackToMenuButton>처음으로 돌아가기</BackToMenuButton>
+          <Button inverted color='blue'>
+            처음으로 돌아가기
+          </Button>
         </Link>
       </Container>
     )
