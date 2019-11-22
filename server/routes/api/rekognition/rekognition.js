@@ -11,14 +11,25 @@ const multerS3 = require('multer-s3')
 const upload = require('./multer');
 // const upload = require("multer")({dest:"upload/"})
 router.post("/", upload.single("file"), (req, res, next)=>{
+
+    // User.getUser()
+    // .then(({code, json}) => {
+    //     res.status(code).send(json);
+    // }).catch(err => {
+    //     console.log(err);
+    //     res.status(code.INTERNAL_SERVER_ERROR)
+    //         .send(util.successFalse(msg.INTERNAL_SERVER_ERROR));
+    // });
+
     const face = req.file.location;
     var age = 0;
     User.insert({
         face,
         age
     })
-    .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS)))
-    .catch(err => {
+    .then(({code, json}) => {
+        res.status(code).send(json);
+    }).catch(err => {
         console.log(err);
         res.status(code.INTERNAL_SERVER_ERROR)
             .send(util.successFalse(msg.INTERNAL_SERVER_ERROR));
@@ -84,8 +95,9 @@ router.post('/:userId', (req, res) => {
                                 userId,
                                 age
                             })
-                            .then(res.send(util.successTrue(msg.AGE_UPDATE_SUCCESS), age))
-                            .catch(err => {
+                            .then(({code, json}) => {
+                                res.status(code).send(json);
+                            }).catch(err => {
                                 console.log(err);
                                 res.status(code.INTERNAL_SERVER_ERROR)
                                     .send(util.successFalse(msg.INTERNAL_SERVER_ERROR));
