@@ -9,7 +9,7 @@ export default class Pay extends React.Component {
     return (
       <Container>
         <Title>주문해주셔서 감사합니다.</Title>
-        <Title>고객님의 대기번호는 {getRandomInt(0, 100)}번 입니다.</Title>
+        <Title>고객님의 대기번호는 {getRandomInt(0, 20)}번 입니다.</Title>
         <Link to='/'>
           <Button basic color='olive' size='massive'>
             처음으로 돌아가기

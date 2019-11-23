@@ -10,7 +10,7 @@ const PreviewCartList = ({ items, total, onTake }) => {
   ))
   return (
     <CartContainer>
-      <Card.Group doubling itemsPerRow={6} stackable>
+      <Card.Group doubling itemsPerRow={4} stackable>
         {itemList}
       </Card.Group>
       <Header as='h4'>금액: {total}원</Header>
