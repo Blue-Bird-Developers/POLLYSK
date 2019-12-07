@@ -11,8 +11,8 @@
   <p align="center">
     느려도 괜찮은 키오스크, 폴리스크 <br/>
 Kiosk for Everyone <br/>
-* AWS Rekognition을 통해 사용자 나이 분석 후 노인을 위한 UI로 변경 <br/>
-* AWS Polly를 이용한 시각장애인을 위한 음성메뉴 서비스
+AWS Rekognition을 통해 사용자 나이 분석 후 노인을 위한 UI로 변경 <br/>
+AWS Polly를 이용한 시각장애인을 위한 음성메뉴
     <br />
    </p>
 
